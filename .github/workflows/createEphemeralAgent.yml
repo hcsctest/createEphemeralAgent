@@ -94,7 +94,7 @@ jobs:
           az vm run-command invoke \
               --resource-group "${RESOURCE_GROUP}" \
               --name "${VM_NAME}" \
-              --scripts @scripts/new_script.sh \
+              --scripts @scripts/setup.sh \
               --no-wait \
               --command-id RunShellScript
 
