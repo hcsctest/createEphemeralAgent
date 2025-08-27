@@ -52,7 +52,6 @@ jobs:
         env:
           GH_SERVER_URL: ${{github.server_url}}
           GH_REPOSITORY_OWNER: ${{github.repository_owner}}
-          GH_PAT: ${{ secrets.GITHUB_TOKEN }}
           GH_RUN_ID: ${{github.run_id}}
           GH_RUN_ATTEMPT: ${{github.run_attempt}}
           REPO_NAME: ${{ github.event.repository.name }}
