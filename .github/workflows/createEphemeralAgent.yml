@@ -105,3 +105,13 @@ jobs:
               echo "$vm"
               az vm delete -g "${RESOURCE_GROUP}" -n ${vm} --yes --no-wait --force-deletion
           done
+
+      - name: Delete VM is Cancelled or Failed
+        if: ${{ failure() || cancelled() }}
+        env:
+          RESOURCE_GROUP: ${{ inputs.RESOURCE_GROUP }}
+          VM_NAME: "actions-ephemeral-${{ github.run_id }}-${{ github.run_attempt }}"
+        run: |
+          #Sleep in case VM creation is in process
+          sleep 15
+          az vm delete -g "${RESOURCE_GROUP}" -n ${VM_NAME} --yes --no-wait --force-deletion
