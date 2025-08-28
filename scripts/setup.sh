@@ -40,7 +40,7 @@ az login --identity > /dev/null 2>&1
 az vm delete \
     --resource-group "Main" \
     --name "${HOSTNAME}" \
-    --yes --no-wait
+    --yes --no-wait --force-deletion
 EOF
 
 systemctl start github-runner.service
