@@ -104,5 +104,5 @@ jobs:
           az vm list -g "${RESOURCE_GROUP}" --subscription "${AZ_SUBSCRIPTION}" --query "[?contains(name, 'actions-ephemeral') && tags.GH_TIME_CREATED < '${CUTOFF_TIME}'].name" |
           jq -c '.[]' | while read vm; do
               echo "$vm"
-              az vm delete -g "${RESOURCE_GROUP}" -n "$vm" --yes --no-wait
+              az vm delete -g "${RESOURCE_GROUP}" -n "${vm}" --yes --no-wait
           done
