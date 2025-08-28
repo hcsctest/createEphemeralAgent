@@ -100,10 +100,8 @@ jobs:
 
           #Check if an ephemeral VM has been up for more than 6 hours, if so delete it
           CUTOFF_TIME=$(date --date "6 hours ago" '+%Y-%m-%dT%H:%M:%S')
-          az vm list -g "${RESOURCE_GROUP}" --subscription "${AZ_SUBSCRIPTION}" --query "[?contains(name, 'actions-ephemeral') && tags.GH_TIME_CREATED < '${CUTOFF_TIME}'].name"
           az vm list -g "${RESOURCE_GROUP}" --subscription "${AZ_SUBSCRIPTION}" --query "[?contains(name, 'actions-ephemeral') && tags.GH_TIME_CREATED < '${CUTOFF_TIME}'].name" |
           jq -c '.[]' | while read vm; do
               echo "$vm"
-              az vm delete -g "${RESOURCE_GROUP}" -n ${vm} --yes --no-wait
-              sleep 1000
+              az vm delete -g "${RESOURCE_GROUP}" -n ${vm} --yes --no-wait --force-deletion
           done
